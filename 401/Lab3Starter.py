@@ -68,15 +68,16 @@ def getLists(l1, l2):
             currentIndex = l2.index(l)
 
             if(previousIndex > currentIndex):
+                print(previousIndex, currentIndex)
                 #list element out of order
-                return False
+                return 0
         
         else:
             #list element not found in larger list
-            return False
+            return 1
     
     #elements found in order
-    return True
+    return 2
         
 
 
@@ -125,6 +126,11 @@ while not done:
           #Print the return value of the function
         pass
     elif choice == 4:
+
+        l1 = list(input('List 1: '))
+        l2 = list(input('List 2: '))
+
+        print(getLists(l1, l2))
 
         ### User provides lists
         ### Find the index of each number and compare indicies
