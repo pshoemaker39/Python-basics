@@ -30,15 +30,29 @@ def vowelCount():
         
 #Add definition for rps function
 
-def rps():
+def rps(p1, p2):
 
-    p1 = str(input('(R)ock, (P)aper, (S)cissors? ')).upper()
-    p2 = str(input('(R)ock, (P)aper, (S)cissors? ')).upper()
+    choices = ['R', 'P', 'S']
+    choiceValues = [2, 3, 5]
 
+    p1 = choiceValues[choices.index(p1)]
+    p2 = choiceValues[choices.index(p2)]
+
+    if ( ( p1 * p2 ) == 6 ):
+        # R&P | P&R - Higher number (Paper) wins
+        print (-1 if ( p1 > p2) else 1)
+
+    elif ( ( p1 * p2 ) == 10 ):
+        # R&S | S&R - Lower number (Rock) wins
+        print (-1 if ( p1 < p2) else 1)
+
+    elif ( ( p1 * p2 ) == 15 ):
+        # P&S | S&P - Higher number (Scissors) wins
+        print (-1 if ( p1 > p2) else 1)
     
-
-
-
+    else:
+        #Draw
+        print(0)
 
 
 #Add definition for sublist function
@@ -74,6 +88,11 @@ while not done:
           #Call vowelCount function and pass the string as an argument
         pass
     elif choice == 3:
+
+        p1 = str(input('Player 1 - (R)ock, (P)aper, (S)cissors? ')).upper()
+        p2 = str(input('Player 2 - (R)ock, (P)aper, (S)cissors? ')).upper()
+
+        rps(p1, p2)
 
 
         #Add code for Problem 5.26
