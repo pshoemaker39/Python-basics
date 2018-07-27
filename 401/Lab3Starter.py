@@ -57,6 +57,30 @@ def rps(p1, p2):
 
 #Add definition for sublist function
 
+def getLists(l1, l2):
+    currentIndex = 0
+    
+    for l in l1:
+
+        if(l in l2):
+
+            previousIndex = currentIndex
+            currentIndex = l2.index(l)
+
+            if(previousIndex > currentIndex):
+                #list element out of order
+                return False
+        
+        else:
+            #list element not found in larger list
+            return False
+    
+    #elements found in order
+    return True
+        
+
+
+
 
 def labMenu():
     print('Enter 1 for Problem 3.29')
