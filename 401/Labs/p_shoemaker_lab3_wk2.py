@@ -58,7 +58,7 @@ def rps(p1, p2):
 #Add definition for sublist function
 
 def getLists(l1, l2):
-    currentIndex = 0
+    currentIndex = -1
     
     for l in l1:
 
@@ -68,17 +68,22 @@ def getLists(l1, l2):
             currentIndex = l2.index(l)
 
             if(previousIndex > currentIndex):
-                print(previousIndex, currentIndex)
                 #list element out of order
-                return 0
+                return False
         
         else:
             #list element not found in larger list
-            return 1
+            return False
     
     #elements found in order
-    return 2
-        
+    return True
+
+def strToLst(s):
+    s = s.replace('[','')
+    s = s.replace(']','')
+    s = s.replace(' ', '')
+    s = s.split(',')
+    return s
 
 
 
@@ -127,8 +132,16 @@ while not done:
         pass
     elif choice == 4:
 
-        l1 = list(input('List 1: '))
-        l2 = list(input('List 2: '))
+        l1 = input('List 1: ')
+        l2 = input('List 2: ')
+
+        l1 = strToLst(l1)
+        l2 = strToLst(l2)
+
+
+        # [15, 1, 100]
+        # [20, 15, 30, 50, 1, 100]
+        # [15, 50, 20]
 
         print(getLists(l1, l2))
 
