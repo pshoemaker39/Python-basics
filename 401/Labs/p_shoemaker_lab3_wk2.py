@@ -2,7 +2,9 @@ def getDivisors():
     target = int(input('Please enter a positive integer: '))
     resultSet = []
 
+    #For each integer through the target
     for i in range(1, target, 1):
+        #If the target is dividble by the current integer, append that integer to the result
         if( (target % i) == 0 ):
             resultSet.append(i)
 
@@ -16,8 +18,11 @@ def vowelCount():
     vowels = ['a', 'e', 'i', 'o', 'u']
     resultSet = [0, 0, 0, 0, 0]
     
+    #For each letter in the target string
     for i in target:
+        #If letter appears in the vowels list
         if(i in vowels):
+            #Increment the appropriate counter within the result
             resultSet[vowels.index(i)] += 1
 
     print('a, e, i, o, and u appear, respectively, {}, {}, {}, {}, {} times.'.format(
@@ -35,6 +40,7 @@ def rps(p1, p2):
     choices = ['R', 'P', 'S']
     choiceValues = [2, 3, 5]
 
+    #Assign the corresponding prime numbers to the user input
     p1 = choiceValues[choices.index(p1)]
     p2 = choiceValues[choices.index(p2)]
 
@@ -60,31 +66,31 @@ def rps(p1, p2):
 def getLists(l1, l2):
     currentIndex = -1
     
+    #For each element in list 1
     for l in l1:
 
+        #If element exists in list 2
         if(l in l2):
 
+            #Shift index placeholders
             previousIndex = currentIndex
             currentIndex = l2.index(l)
 
             if(previousIndex > currentIndex):
-                #list element out of order
+                #If previsous element index is greater than current element index
+                #List element out of order
                 return False
         
         else:
-            #list element not found in larger list
+            #List element not found in larger list
             return False
     
-    #elements found in order
+    #Elements found in order
     return True
 
 def strToLst(s):
-    s = s.replace('[','')
-    s = s.replace(']','')
-    s = s.replace(' ', '')
-    s = s.split(',')
-    return s
-
+    #Convert string list to actual list
+    return s.replace('[','').replace(']','').replace(' ', '').split(',')
 
 
 
