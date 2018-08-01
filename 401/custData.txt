@@ -4,4 +4,3 @@
 126, 00478, laptop, electronics,computers, 2, 549.99 
 127, 00473, beef, grocery,freezer, 3, 12.99 
 128, 00453, strawberries , grocery,produce, 2, 3.98 
-
