@@ -119,7 +119,7 @@ def magicSquareEvaluator(forceTrue=False):
 
 def magic():
     magicSquare = magicSquareEvaluator()
-    if magicSquare:
+    if magicSquare == True:
         print("\n This IS a magic square. \n")
         return ''
     else:
@@ -127,6 +127,7 @@ def magic():
         ask = str(input("\n Enter [Y] to see an actual magic square or [N] to return to the main menu. \n")).lower().replace('[','').replace(']','')
         if ask == 'y':
             magicSquare = magicSquareEvaluator(True)
+            print("\n This IS a magic square. \n")
             return ''
         else:
             return ''
