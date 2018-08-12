@@ -3,6 +3,9 @@ class Student:
         self.name = name
         self.major = major
     
+    def getName(self):
+        return self.name
+
     def getMajor(self):
         return self.major
     
