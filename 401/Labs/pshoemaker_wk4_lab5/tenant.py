@@ -8,7 +8,11 @@ class Tenant:
         self.tenant_aptNum = apartmentNumber
         self.tenant_id = random.randint(1000,9999)
 
-    
+    def getApartmentNumber(self):
+        return self.tenant_aptNum
+
+    def getTenantName(self):
+        return self.tenant_fName + ' ' + self.tenant_lName
 
     
 
