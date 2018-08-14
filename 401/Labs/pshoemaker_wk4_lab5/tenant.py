@@ -6,7 +6,7 @@ class Tenant:
         self.tenant_fName = firstName
         self.tenant_lName = lastName
         self.tenant_aptNum = apartmentNumber
-        self.tenant_id = random.randint(1000,9999)
+        self.tenant_id = random.randint(10000,99999)
 
     def getApartmentNumber(self):
         return self.tenant_aptNum

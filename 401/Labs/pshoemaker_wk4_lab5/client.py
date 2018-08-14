@@ -1,3 +1,8 @@
+import apartment as Apt
+from  apartment_db import Apartment_db as AptDB
+import tenant as Tenant
+from tenant_database import Tenant_db as TenantDB
+
 apartmentDataPath = 'apartment_data.txt'
 
 options = {
@@ -12,8 +17,15 @@ options = {
 }
 
 def rentLeaseApartment():
-    print('Selected Rent / Lease Apartment')
+    # print("\n")
+    # beds = float(input("Please enter the numnber of beds: "))
+    # print("\n")
+    # baths = float(input("Please enter the numnber of baths: "))
+
     pass
+
+
+
 
 def searchAvailableApartments():
     print('Selected Search Available Apartments')
@@ -57,7 +69,10 @@ def optionSelector(option):
     switch = switcher.get(option)
     switch()
 
-def menuController():
+def menuController(dataFile):
+    db = AptDB()
+
+    db.loadApartments(dataFile)
 
     while True:
 
@@ -73,5 +88,5 @@ def menuController():
         print('\n\n')
 
 
-menuController()
+menuController(apartmentDataPath)
 

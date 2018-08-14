@@ -1,4 +1,3 @@
-#Apartment_Number #Bedrooms #Baths #Rent #Status(R|A)
 0001 3 2.5 2300 R
 0002 2 1.5 1500 A
 0003 2 1.5 1900 R

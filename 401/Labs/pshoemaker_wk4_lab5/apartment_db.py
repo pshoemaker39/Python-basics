@@ -1,3 +1,5 @@
+from apartment import Apartment as Apt
+
 class Apartment_db:
     def __init__(self):
         self.apartments = list()
@@ -14,14 +16,14 @@ class Apartment_db:
     def getAvailApartments(self):
         available = []
         for apartment in self.apartments:
-            if apartment.getApartmentStatus() == 'A':
+            if apartment.getApartmentStatus().strip() == 'A':
                 available.append(apartment)
         return available
 
     def getRentedApartments(self):
         rented = []
         for apartment in self.apartments:
-            if apartment.getApartmentStatus() == 'R':
+            if apartment.getApartmentStatus().strip() == 'R':
                 rented.append(apartment)
         return rented
 
@@ -37,5 +39,17 @@ class Apartment_db:
     def getTotalAvailable(self):
         return len(Apartment_db.getAvailApartments())
     
-    def getTotalRented():       
+    def getTotalRented(self):       
         return len(Apartment_db.getRentedApartments())
+
+    def loadApartments(self, file):
+        data = open(file, "r")
+        for line in data.readlines():
+            print("\nRead Line:\n",line,"\n")
+            line = line.split(' ')
+            newApt = Apt(line[0], line[1], line[2], line[3], line[4])
+            self.apartments.append(newApt)
+
+    def getAllApartments(self):
+        return self.apartments
+
