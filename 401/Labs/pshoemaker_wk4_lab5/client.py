@@ -87,7 +87,7 @@ def makeApartmentAvailable(db, tdb):
 
     targetApt = db.getApartment(aptNum)
 
-    if len(targetApt) == 0:
+    if targetApt == None:
         print("******** No Apartments Match Specified Number ******")
         return
 
