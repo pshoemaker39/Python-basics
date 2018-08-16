@@ -199,8 +199,15 @@ def addNewApartment(db, tdb):
 
     pass
 
-def quitMenu():
-    print('Done')
+def quitMenu(db, tdb):
+    
+    print('\n************* Apartment Metrics ***************')
+    print('\nTotal Number of Apartments: ', db.getTotalApartments())
+    print('\nTotal Number of Apartments Leased: ', db.getTotalRented())
+    print('\nTotal Number of Apartments Available: ', db.getTotalAvailable())
+    print('\nTotal Number of Tenants: ', tdb.countTenants())
+    print('\n************* End Apartment Metrics ***********')
+    
     quit()
 
 def optionSelector(option, db, tdb):

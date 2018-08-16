@@ -37,10 +37,10 @@ class Apartment_db:
         return len(self.apartments)
 
     def getTotalAvailable(self):
-        return len(Apartment_db.getAvailApartments())
+        return len(Apartment_db.getAvailApartments(self))
     
     def getTotalRented(self):       
-        return len(Apartment_db.getRentedApartments())
+        return len(Apartment_db.getRentedApartments(self))
 
     def loadApartments(self, file):
         data = open(file, "r")
