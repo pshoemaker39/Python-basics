@@ -8,7 +8,7 @@ class Tenant_db:
     def getTenant(self, apartmentNumber):
         for tenant in self.tenants:
             if tenant.getApartmentNumber() == apartmentNumber:
-                return tenant.getTenantName()
+                return tenant
         return ''
 
     def countTenants(self):

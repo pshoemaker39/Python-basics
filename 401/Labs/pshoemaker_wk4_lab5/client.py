@@ -43,8 +43,8 @@ def rentLeaseApartment(db, tdb):
         if (targetApt == '-1'):
             return
         else:
-            fName = str(input("\n\nPlease enter your first name: "))
-            lName = str(input("\n\nPlease enter your last name:"))
+            fName = str(input("\nPlease enter your first name: "))
+            lName = str(input("\nPlease enter your last name: "))
 
             newTnt = Tnt(fName, lName, targetApt)
             tdb.addTenant(newTnt)
@@ -83,7 +83,7 @@ def searchAvailableApartments(db, tdb):
 
 def makeApartmentAvailable(db, tdb):
     
-    aptNum = str(input("\nPlease enter an apartment number:"))
+    aptNum = str(input("\nPlease enter an apartment number: "))
 
     targetApt = db.getApartment(aptNum)
 
@@ -148,7 +148,7 @@ def listRentedApartments(db, tdb):
             print("| ", r[0]," | ", r[1], " | ", r[2], " | ", r[3]," | ", r[4]," | ", r[5]," |")
     print("******** End Occupied Apartments With Documented Tenants *****************")
 
-    print("\n\n******** Occupied Apartments Without Documented Tenants ******************")
+    print("******** Occupied Apartments Without Documented Tenants ******************")
     print("| Apartment Number | Bedrooms | Bathrooms | Rent |")        
     for r in results:
         if len(r) < 5:
@@ -159,8 +159,24 @@ def listRentedApartments(db, tdb):
 
     pass
 
-def displayTenantInformation():
-    print('Selected Display Tenant Information')
+def displayTenantInformation(db, tdb):
+    aptNum = str(input("\nPlease enter an apartment number: "))
+
+    targetApt = db.getApartment(aptNum)
+    
+    if targetApt.getApartmentStatus() == 'R':
+        targetTnt = tdb.getTenant(targetApt.getApartmentNumber())
+        if targetTnt == '': 
+            print("\nThe current tenant at ", targetApt.getApartmentNumber(), " is not documented.")
+        else:
+            print("\nThe current tenant at ", targetApt.getApartmentNumber(), " is ", targetTnt.getTenantName())
+        
+    elif targetApt.getApartmentStatus() == 'A':
+        print("\nThis apartment is currently available for rent.")
+
+    else:
+        print("\nNo apartment found with this number.")
+
     pass
 
 def addNewApartment(db, tdb):
