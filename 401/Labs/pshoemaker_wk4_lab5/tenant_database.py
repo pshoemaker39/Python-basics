@@ -15,6 +15,7 @@ class Tenant_db:
         return len(self.tenants)
 
     def removeTenant(self, apartmentNumber):
+        
         for tenant in self.tenants:
             if tenant.getApartmentNumber() == apartmentNumber:
                 return self.tenants.pop(self.tenants.index(tenant))

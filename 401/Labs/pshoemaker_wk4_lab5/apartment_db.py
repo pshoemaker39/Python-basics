@@ -47,9 +47,22 @@ class Apartment_db:
         for line in data.readlines():
             print("\nRead Line:\n",line,"\n")
             line = line.split(' ')
-            newApt = Apt(line[0], line[1], line[2], line[3], line[4])
+            newApt = Apt(line[0], float(line[1]), float(line[2]), float(line[3]), line[4])
             self.apartments.append(newApt)
 
     def getAllApartments(self):
         return self.apartments
+
+    def searchDb(self, minBeds, minBaths, maxRent, reqStatus):
+        results = []
+        for apt in self.apartments:
+            if (
+                (apt.getApartmentBathrooms() >= minBaths) &
+                (apt.getApartmentBedrooms() >= minBeds) &
+                (apt.getApartmentRent() <= maxRent) &
+                (apt.getApartmentStatus().strip() == reqStatus)
+            ):
+                results.append(apt)
+        return results
+
 

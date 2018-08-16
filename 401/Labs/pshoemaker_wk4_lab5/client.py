@@ -1,9 +1,9 @@
-import apartment as Apt
+from apartment import Apartment as Apt
 from  apartment_db import Apartment_db as AptDB
 import tenant as Tenant
 from tenant_database import Tenant_db as TenantDB
 
-apartmentDataPath = 'apartment_data.txt'
+apartmentDataFile = 'apartment_data.txt'
 
 options = {
     '1': 'Rent/Lease Apartment',
@@ -16,27 +16,68 @@ options = {
     '8': 'Exit'
 }
 
+def displaySearchResults(results):
+    print("| Apartment Number | Bedrooms | Bathrooms | Rent |")
+    for apt in results:
+        print("| ", apt.getApartmentNumber()," | ", apt.getApartmentBedrooms(), " | ", apt.getApartmentBathrooms(), " | ", apt.getApartmentRent()," |")
+
 def rentLeaseApartment():
-    # print("\n")
-    # beds = float(input("Please enter the numnber of beds: "))
-    # print("\n")
-    # baths = float(input("Please enter the numnber of baths: "))
+    print("\n")
+    beds = float(input("Please enter the numnber of beds: "))
+    print("\n")
+    baths = float(input("Please enter the numnber of baths: "))
+    pass
+
+def searchAvailableApartments(db, tdb):
+    print("\n")
+    minBeds = float(input("Please enter the minimum beds: "))
+    print("\n")
+    minBaths = float(input("Please enter the minimum baths: "))
+    print("\n")
+    maxRent = float(input("Please enter the maximum rent: "))
+    print("\n")
+    reqStatus = 'A'
+    
+    results = db.searchDb(minBeds, minBaths, maxRent, reqStatus)
+
+    if len(results) > 0:
+        print("******** Available Apartments ********************")
+        displaySearchResults(results)
+        print("\n******** End Available Apartments ****************")
+    else:
+        print("******** No Available Apartments ********************")
+    pass
+
+def makeApartmentAvailable(db, tdb):
+    
+    aptNum = str(input("\nPlease enter an apartment number:"))
+
+    targetApt = db.getApartment(aptNum)
+
+    if len(targetApt) == 0:
+        print("******** No Apartments Match Specified Number ******")
+        return
+
+    if (targetApt.getApartmentStatus() == 'A'):
+        print("***** Apartment Matching Specified Number Already Available ****")
+        return
+    else:
+        targetApt.setApartmentStatus('A')
+        tdb.removeTenant(aptNum)
+        print("**** Tenant at ", aptNum, " removed. *****")
 
     pass
 
+def listAvailableApartments(db, tdb):
+    
+    results = db.getAvailApartments()
 
-
-
-def searchAvailableApartments():
-    print('Selected Search Available Apartments')
-    pass
-
-def makeApartmentAvailable():
-    print('Selected Make Apartment Available')
-    pass
-
-def listAvailableApartments():
-    print('Selected List Available Apartments')
+    if len(results) > 0:
+        print("******** Available Apartments ********************")
+        displaySearchResults(results)
+        print("\n******** End Available Apartments ****************")
+    else:
+        print("******** No Available Apartments ********************")
     pass
 
 def listRentedApartments():
@@ -47,15 +88,31 @@ def displayTenantInformation():
     print('Selected Display Tenant Information')
     pass
 
-def addNewApartment():
-    print('Selected Add New Apartment')
+def addNewApartment(db, tdb):
+    print("\n")
+    number = str(input("Please enter the apartment number: "))
+    print("\n")
+    beds = float(input("Please enter the number of beds: "))
+    print("\n")
+    baths = float(input("Please enter the number of baths: "))
+    print("\n")
+    rent = float(input("Please enter the rent: "))
+    print("\n")
+    status = 'A'    
+
+    newApt = Apt(number, beds, baths, rent, status)
+
+    db.addApartment(newApt)
+
+    print('**** Apartment Added *****')
+
     pass
 
 def quitMenu():
     print('Done')
     quit()
 
-def optionSelector(option):
+def optionSelector(option, db, tdb):
     switcher = {
         '1': rentLeaseApartment,
         '2': searchAvailableApartments,
@@ -67,11 +124,11 @@ def optionSelector(option):
         '8': quitMenu
     }
     switch = switcher.get(option)
-    switch()
+    switch(db, tdb)
 
 def menuController(dataFile):
     db = AptDB()
-
+    tdb = TenantDB()
     db.loadApartments(dataFile)
 
     while True:
@@ -83,7 +140,7 @@ def menuController(dataFile):
         
         menuOption = str(input('Choice? '))
 
-        optionSelector(menuOption)
+        optionSelector(menuOption, db, tdb)
 
         print('\n\n')
 

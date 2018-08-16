@@ -1,12 +1,5 @@
 class Apartment:
     def __init__(self, apartmentNumber, beds, baths, rent, status):
-        print(
-            "\nApt Num: ",apartmentNumber,"\n",
-            "\nApt Beds: ",beds,"\n",
-            "\nApt Baths: ",baths,"\n",
-            "\nApt Rent: ",rent,"\n",
-            "\nApt Status: ",status,"\n"
-        )
         self.apt_num = apartmentNumber
         self.apt_bedrm = beds
         self.apt_baths = baths
@@ -24,6 +17,12 @@ class Apartment:
 
     def getApartmentBedrooms(self):
         return self.apt_bedrm
+
+    def setApartmentBathrooms(self, bath):
+        self.apt_baths = baths
+
+    def getApartmentBathrooms(self):
+        return self.apt_baths
 
     def setApartmentRent(self, rent):
         self.apt_rent = rent
