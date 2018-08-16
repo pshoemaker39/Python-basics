@@ -45,7 +45,7 @@ class Apartment_db:
     def loadApartments(self, file):
         data = open(file, "r")
         for line in data.readlines():
-            print("\nRead Line:\n",line,"\n")
+            #print("\nRead Line:\n",line,"\n")
             line = line.split(' ')
             newApt = Apt(line[0], float(line[1]), float(line[2]), float(line[3]), line[4])
             self.apartments.append(newApt)

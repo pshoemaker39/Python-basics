@@ -14,6 +14,9 @@ class Tenant:
     def getTenantName(self):
         return self.tenant_fName + ' ' + self.tenant_lName
 
+    def getTenantId(self):
+        return self.tenant_id
+
     
 
 

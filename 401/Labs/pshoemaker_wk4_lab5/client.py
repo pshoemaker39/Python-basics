@@ -10,7 +10,7 @@ options = {
     '2': 'Search Available Apartments',
     '3': 'Make Apartment Available',
     '4': 'List Available Apartments',
-    '5': 'List Rented Apartments',
+    '5': 'List Rented/Leased Apartments',
     '6': 'Display Tenant Information',
     '7': 'Add New Apartment',
     '8': 'Exit'
@@ -20,6 +20,7 @@ def displaySearchResults(results):
     print("| Apartment Number | Bedrooms | Bathrooms | Rent |")
     for apt in results:
         print("| ", apt.getApartmentNumber()," | ", apt.getApartmentBedrooms(), " | ", apt.getApartmentBathrooms(), " | ", apt.getApartmentRent()," |")
+    
 
 def rentLeaseApartment(db, tdb):
     print("\n")
@@ -37,7 +38,7 @@ def rentLeaseApartment(db, tdb):
         print("******** Available Apartments ********************")
         displaySearchResults(results)
         print("\n******** End Available Apartments ****************\n")
-        targetApt = str(input("Enter an apartment number to rent it, or enter -1 to exit"))
+        targetApt = str(input("Enter an apartment number to rent it ( or enter -1 to exit ):   "))
 
         if (targetApt == '-1'):
             return
@@ -46,6 +47,7 @@ def rentLeaseApartment(db, tdb):
             lName = str(input("\n\nPlease enter your last name:"))
 
             newTnt = Tnt(fName, lName, targetApt)
+            tdb.addTenant(newTnt)
 
             db.getApartment(targetApt).setApartmentStatus('R')
 
@@ -111,8 +113,50 @@ def listAvailableApartments(db, tdb):
         print("******** No Available Apartments ********************")
     pass
 
-def listRentedApartments():
-    print('Selected List Rented Apartments')
+def listRentedApartments(db, tdb):
+    targetApts = db.getRentedApartments()
+    targetTnts = tdb.getAllTenants()
+    results = []
+
+    
+
+    for apt in targetApts:
+        aptNum = apt.getApartmentNumber()
+        
+        result =[
+            aptNum, 
+            apt.getApartmentBedrooms(),
+            apt.getApartmentBathrooms(),
+            apt.getApartmentRent()
+            ]
+
+        
+
+        for tnt in targetTnts:
+            print(tnt.getApartmentNumber(), aptNum)
+            if tnt.getApartmentNumber() == aptNum:
+                result.append(tnt.getTenantId())
+                result.append(tnt.getTenantName())
+        
+        results.append(result)
+
+    
+    print("\n\n******** Occupied Apartments With Documented Tenants ******************")
+    print("| Apartment Number | Bedrooms | Bathrooms | Rent | Tenant Id | Tenant Name |")        
+    for r in results:
+        if len(r) > 4:
+            print("| ", r[0]," | ", r[1], " | ", r[2], " | ", r[3]," | ", r[4]," | ", r[5]," |")
+    print("******** End Occupied Apartments With Documented Tenants *****************")
+
+    print("\n\n******** Occupied Apartments Without Documented Tenants ******************")
+    print("| Apartment Number | Bedrooms | Bathrooms | Rent |")        
+    for r in results:
+        if len(r) < 5:
+            print("| ", r[0]," | ", r[1], " | ", r[2], " | ", r[3]," |")
+    print("******** End Occupied Apartments Without Documented Tenants *****************")        
+            
+
+
     pass
 
 def displayTenantInformation():
@@ -162,6 +206,8 @@ def menuController(dataFile):
     tdb = TenantDB()
     db.loadApartments(dataFile)
 
+    print('\n\n\n\n\n\n')
+
     while True:
 
         print('\n\nMenu options:')
@@ -176,5 +222,5 @@ def menuController(dataFile):
         print('\n\n')
 
 
-menuController(apartmentDataPath)
+menuController(apartmentDataFile)
 
