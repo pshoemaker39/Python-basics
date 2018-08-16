@@ -1,6 +1,6 @@
 from apartment import Apartment as Apt
 from  apartment_db import Apartment_db as AptDB
-import tenant as Tenant
+from tenant import Tenant as Tnt
 from tenant_database import Tenant_db as TenantDB
 
 apartmentDataFile = 'apartment_data.txt'
@@ -21,11 +21,42 @@ def displaySearchResults(results):
     for apt in results:
         print("| ", apt.getApartmentNumber()," | ", apt.getApartmentBedrooms(), " | ", apt.getApartmentBathrooms(), " | ", apt.getApartmentRent()," |")
 
-def rentLeaseApartment():
+def rentLeaseApartment(db, tdb):
     print("\n")
-    beds = float(input("Please enter the numnber of beds: "))
+    minBeds = float(input("Please enter the minimum beds: "))
     print("\n")
-    baths = float(input("Please enter the numnber of baths: "))
+    minBaths = float(input("Please enter the minimum baths: "))
+    print("\n")
+    maxRent = float(input("Please enter the maximum rent: "))
+    print("\n")
+    reqStatus = 'A'
+    
+    results = db.searchDb(minBeds, minBaths, maxRent, reqStatus)
+
+    if len(results) > 0:
+        print("******** Available Apartments ********************")
+        displaySearchResults(results)
+        print("\n******** End Available Apartments ****************\n")
+        targetApt = str(input("Enter an apartment number to rent it, or enter -1 to exit"))
+
+        if (targetApt == '-1'):
+            return
+        else:
+            fName = str(input("\n\nPlease enter your first name: "))
+            lName = str(input("\n\nPlease enter your last name:"))
+
+            newTnt = Tnt(fName, lName, targetApt)
+
+            db.getApartment(targetApt).setApartmentStatus('R')
+
+    else:
+        print("******** No Matching Apartments ********************")
+
+
+    
+    
+    
+    
     pass
 
 def searchAvailableApartments(db, tdb):
